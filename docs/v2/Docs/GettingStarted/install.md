@@ -14,6 +14,8 @@
 
 <img src="./Images/install_01.png" width="750" />
 
+> 目前已没有主题扩展代码相关配置
+
 本主题当前页面所涉及的配置有：
 
 - 博客皮肤
@@ -79,7 +81,7 @@ CSS代码位置：```/dist/simpleMemory.css``` 拷贝此文件代码至页面定
       },
     }
 </script>
-<script src="https://cdn.jsdelivr.net/gh/BNDong/Cnblogs-Theme-SimpleMemory@v2.1.0/dist/simpleMemory.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/BNDong/Cnblogs-Theme-SimpleMemory@v2.1.3/dist/simpleMemory.js" defer></script>
 ```
 
 详细配置参考相关[文档](https://bndong.github.io/Cnblogs-Theme-SimpleMemory/v2/#/Docs/Customization/config)。

@@ -12,7 +12,7 @@ export default function main(_) {
     setTimeout(() =>  {
         let cpb         = $('#cnblogs_post_body')
             ,imgList    = $('#cnblogs_post_body img')
-            ,comImgList = $('.feedbackItem img')
+            ,comImgList = $('.feedbackCon img')
             ,data       = [];
 
         $.each(imgList, function (i) {
@@ -29,10 +29,16 @@ export default function main(_) {
                 if (!tem.hasClass('code_img_closed') && !tem.hasClass('code_img_opened')) {
                     let width  = tem.attr('width');
                     let height = tem.attr('height');
+                    let alt    = tem.attr('alt');
+                    let style  = tem.attr('style');
+                    let src    = tem.attr('src');
                     tem.after('<a data-fancybox="gallery" href="'+tem.attr('src')+'"><img ' +
-                        (width ? ' width="' + width + '" ' : '') +
+                        (width  ? ' width="' + width + '" ' : '') +
                         (height ? ' height="' + height + '" ' : '') +
-                        ' src="'+tem.attr('src')+'"/></a>');
+                        (src    ? ' src="' + src + '" ' : '') +
+                        (alt    ? ' alt="' + alt + '" ' : '') +
+                        (style  ? ' style="' + style + '" ' : '') +
+                        '/></a>');
                     tem.remove();
                 }
             });

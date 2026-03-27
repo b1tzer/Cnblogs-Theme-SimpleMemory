@@ -16,15 +16,18 @@
   - [钩子](Docs/Customization/hook.md)
   - [友链](Docs/Customization/links.md)
   
-- 扩展
+[//]: # (- 扩展)
 
-  - [播放器](Docs/Customization/player.md)
-  - [网站统计](Docs/Customization/statistical.md)
+[//]: # ()
+[//]: # (  - [播放器]&#40;Docs/Customization/player.md&#41;)
+
+[//]: # (  - [网站统计]&#40;Docs/Customization/statistical.md&#41;)
 
 - 指南
 
   - [菜单数据](Docs/Guide/menuData.md)
   - [文章标题与目录](Docs/Guide/articleDirectory.md)
   - [资源托管](Docs/Guide/cdn.md)
+  - [使用Codespaces调试开发](Docs/Guide/codespaces.md)
 
 - [Changelog](Docs/changelog.md)

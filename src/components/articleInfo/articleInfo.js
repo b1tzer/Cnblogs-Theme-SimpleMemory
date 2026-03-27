@@ -39,16 +39,16 @@ export default function main(_) {
         }, 1000 );
 
         function postMetaHtml(postDescText) {
-            let info = postMeta(postDescText);
+            const { date, vnum, cnum, tnum } = postMeta(postDescText);
             let textNum = $('#cnblogs_post_body').text().length;
 
-            return '<span class="postMeta"><i class="iconfont icon-time1"></i>' + info.date.replace(/-/g,"/").substr(2) + '' +
-                '<i class="iconfont icon-browse"></i>' + info.vnum + '' +
-                '<i class="iconfont icon-interactive"></i>' + info.cnum + '' +
-                '<i class="iconfont icon-hot"></i>' + info.tnum + '' +
-                '<br><i class="iconfont icon-wenzi4"></i>' + textNum + '' +
-                '<i class="iconfont icon-shangwutubiao-"></i>' + _.__tools.minToTime(textNum / 500) + ' ~ ' + _.__tools.minToTime(textNum / 300) +
-                '</span>';
+            return `<span class="postMeta">
+            <i class="simple-memory-iconfont simple-memory-icon-time1"></i>${date}
+            <i class="simple-memory-iconfont simple-memory-icon-browse"></i>${vnum}
+            <i class="simple-memory-iconfont simple-memory-icon-interactive"></i>${cnum}
+            <i class="simple-memory-iconfont simple-memory-icon-hot"></i>${tnum}<br>
+            <i class="simple-memory-iconfont simple-memory-icon-wenzi4"></i>${textNum}
+            <i class="simple-memory-iconfont simple-memory-icon-shangwutubiao-"></i>${_.__tools.minToTime(textNum / 500)} ~ ${_.__tools.minToTime(textNum / 300)}</span>`;
         }
     })();
 
@@ -59,11 +59,8 @@ export default function main(_) {
         _.__timeIds.articleInfoClassTId = window.setInterval(() => {
             let obj = $('#BlogPostCategory').find('a');
             if (obj.length > 0) {
-                $.each(obj, (i) => {
-                    let tag = $(obj[i]);
-                    tag.prepend('<span class="iconfont icon-marketing_fill"></span>');
-                    $('#articleInfo').append('<a href="'+tag.attr('href')+'" target="_blank"><span class="article-info-tag article-tag-class-color">'+(tag.text())+'</span></a>');
-                });
+                _.__tools.htmlReplace('#BlogPostCategory', /,/g, '')
+                _.__tools.articleInfo(obj, 1)
                 _.__tools.setDomHomePosition();
                 _.__tools.clearIntervalTimeId(_.__timeIds.articleInfoClassTId);
             }
@@ -77,15 +74,46 @@ export default function main(_) {
         _.__timeIds.articleInfoTagTId = window.setInterval(() => {
             let obj = $('#EntryTag').find('a');
             if (obj.length > 0) {
-                $.each(obj, (i) => {
-                    let tag = $(obj[i]);
-                    tag.prepend('<span class="iconfont icon-label_fill"></span>');
-                    $('#articleInfo').append('<a href="'+tag.attr('href')+'" target="_blank"><span class="article-info-tag article-tag-color">'+(tag.text())+'</span></a>');
-                });
+                _.__tools.htmlReplace('#EntryTag', /,/g, '')
+                _.__tools.articleInfo(obj, 2)
                 _.__tools.setDomHomePosition();
                 _.__tools.clearIntervalTimeId(_.__timeIds.articleInfoTagTId);
             }
         }, 1000);
     })();
+
+    /**
+     * 设置文章引用 | 扩展markdown语法
+     */
+    (() => {
+        $('.blogpost-body p').html((i, c) => {
+            if (/^\?&gt;/.test(c)) return '<p class="tip">' + c.slice(5).trim() + '</p>'
+            if (/^!&gt;/.test(c)) return '<p class="warn">' + c.slice(5).trim() + '</p>'
+        })
+    })();
+
+    /**
+     * 设置文章标题-iconfont
+     */
+    (() => {
+        let titleInfo = $('#cnblogs_post_body').find(':header')
+        if (_.__config.articleContent.prefixIcon.enable && titleInfo.length > 0) {
+            _.__tools.dynamicLoadingJs(_.__config.articleContent.prefixIcon.options.link).then(r => {
+                let iconfonts = _.__config.articleContent.prefixIcon.options.iconfontArr
+                titleInfo.html((i, c) => {
+                    let arr = []
+                    let num = Math.floor(Math.random() * (iconfonts.length - i) + i)
+                    let h = parseInt(titleInfo[i].tagName.replace(/H/g, ''));
+                    if (arr.indexOf(num) === -1 && h !== 6) {
+                        arr.push(num)
+                        $('<svg class="simple-memory-symbol"> <use xlink:href="#icon-' + iconfonts[num] + '"></use></svg>').prependTo(titleInfo[i])
+                    } else {
+                        i--
+                    }
+                })
+            }).catch(e => console.error('iconfont.js', e))
+        }
+    })()
+
 
 }

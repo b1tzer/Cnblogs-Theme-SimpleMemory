@@ -34,7 +34,13 @@ export default function main(_) {
 
         // ------- 设置头像 -------
         let blogAvatar = _.__config.info.avatar ? _.__config.info.avatar : defaultAvatarImg;
-        $('#menuBlogAvatar').append("<img class='img-responsive img-rounded' alt='用户头像' src='"+blogAvatar+"'>");
+        $('#menuBlogAvatar').append("<img class='img-responsive' alt='用户头像' src='"+blogAvatar+"'>");
+
+        // 头像动效
+        if (_.__config.animate.avatar.enable) {
+            $('#menuBlogAvatar').css('border-radius', '50%')
+            $('#menuBlogAvatar .img-responsive').addClass('img-rounded')
+        }
 
         // ------- 设置侧边栏信息 -------
         $('.sidebar-title-msg').text(_.__config.sidebar.titleMsg);
@@ -57,10 +63,23 @@ export default function main(_) {
         // ------- 用户个人信息 -------
         _.__timeIds.introduceTId = window.setInterval(() => {
             let introduceHtml = $('#profile_block').html(),
-                menuIntroduce = $('#introduce');
+                menuIntroduce = $('.sidebar-userinfo#introduce');
+            if($('#profile_block img')[0]) introduceHtml = introduceHtml.replace('<br>', '')
             if ((typeof introduceHtml == 'string') && menuIntroduce.html() === '') {
                 menuIntroduce.html(_.__tools.htmlFiltrationScript(introduceHtml));
                 _.__tools.clearIntervalTimeId(_.__timeIds.introduceTId);
+            }
+        }, timeout);
+
+        // ------- 博客统计 -------
+        _.__timeIds.blogStatsTId = window.setInterval(() => {
+            let blogStatsObj   = $('.blogStats'),
+                statsPostCount = $('#stats_post_count'),
+                menuBlogStats  = $('.sidebar-stats');
+            if (blogStatsObj.length > 0 && statsPostCount.length > 0) {
+                menuBlogStats.html(_.__tools.htmlFiltrationScript(blogStatsObj.html())).show();
+                blogStatsObj.html('')
+                _.__tools.clearIntervalTimeId(_.__timeIds.blogStatsTId);
             }
         }, timeout);
 
@@ -228,7 +247,7 @@ export default function main(_) {
                 navHtml = '<ul>';
                 $.each(navList, function (i) {
                     let iconClass = navList[i].length > 2 ? navList[i][2] : "icon-qianzishenhe";
-                    navHtml += '<li><a href="'+(navList[i][1])+'" class="sidebar-dropdown-box" target="_blank"><i class="iconfont '+iconClass+'"></i>'+(navList[i][0])+'</a></li>';
+                    navHtml += '<li><a href="'+(navList[i][1])+'" class="sidebar-dropdown-box" target="_blank"><i class="simple-memory-iconfont simple-memory-'+iconClass+' iconfont '+iconClass+'"></i>'+(navList[i][0])+'</a></li>';
                 });
                 navHtml += '</ul>';
                 $('.customize-nav').append(navHtml).show();
@@ -242,7 +261,7 @@ export default function main(_) {
                 $.each(customData, (title, list) => {
                     let html = '<li class="ng-star-inserted sidebar-dropdown">';
                     html += '<a href="javascript:void(0)" class="ng-star-inserted sidebar-dropdown-box">';
-                    html += '   <i class="iconfont '+ list.icon +'"></i>';
+                    html += '   <i class="simple-memory-iconfont iconfont '+ list.icon +'"></i>';
                     html += '   <span class="sidebar-dropdown-title">'+ title +'</span>';
                     html += '</a>';
                     html += '<div class="sidebar-submenu"><ul>';
@@ -255,7 +274,7 @@ export default function main(_) {
                     html += '</ul></div>';
                     html += '</li>';
 
-                    $('#customize-sidebar-menu ul').append(html);
+                    $('#customize-sidebar-menu > ul').append(html);
                 });
                 $('#customize-sidebar-menu').show();
                 $('#customize-sidebar-menu .sidebar-dropdown').show();
@@ -326,5 +345,25 @@ export default function main(_) {
                 }
             }, 300);
         });
+    })();
+
+    /**
+     * 设置是否默认展开菜单栏
+     */
+    (() => {
+        let submenuShow = (obj)  => {
+            obj.show().parent('li.sidebar-dropdown').addClass('active');
+        }
+        if (_.__config.sidebar.submenu.pointsRank) submenuShow($('#sb-sidebarScorerank'));
+        if (_.__config.sidebar.submenu.latestPosts) submenuShow( $('#sb-sidebarRecentposts'));
+        if (_.__config.sidebar.submenu.myTags) submenuShow($('#sb-toptags'));
+        if (_.__config.sidebar.submenu.postsClassify) submenuShow($('#sb-classify'));
+        if (_.__config.sidebar.submenu.articleClassify) submenuShow($('#sb-ArticleCategory'));
+        if (_.__config.sidebar.submenu.readRank) submenuShow($('#sb-topview'));
+        if (_.__config.sidebar.submenu.recommendRank) submenuShow($('#sb-topDiggPosts'));
+        if (_.__config.sidebar.submenu.postsArchive) submenuShow($('#sb-record'));
+        if (_.__config.sidebar.submenu.articleArchive) submenuShow($('#sb-articlearchive'));
+        if (_.__config.sidebar.submenu.latestComment) submenuShow($('#sb-recentComments'));
+        if (_.__config.sidebar.submenu.customList) submenuShow($('#customize-sidebar-menu .sidebar-submenu'));
     })();
 }

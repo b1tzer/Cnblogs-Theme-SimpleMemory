@@ -5,7 +5,6 @@
  * ----------------------------------------------
  * @describe: 主程序文件
  */
-import _ from 'lodash';
 import config from './components/config/config';
 import status from "./components/status/status";
 import tools from './utils/tools';
@@ -14,6 +13,7 @@ import event from "./components/event/event";
 $(document).ready(function(){
 
     // 初始化
+    let _ = {};
     _.__config  = config(); // 配置信息
     _.__status  = status(); // 页面状态信息
     _.__tools   = tools();  // 公共处理工具
@@ -23,7 +23,7 @@ $(document).ready(function(){
     if (_.__config.info.name === '') _.__config.info.name = _.__status.user;
 
     // 开启渲染
-    import(/* webpackChunkName: "page-[request]" */ `./page/${_.__status.pageType}`).then(module => {
+    import(/* webpackChunkName: "page-[request]" */ `./pages/${_.__status.pageType}`).then(module => {
         const page = module.default;
 
         /**

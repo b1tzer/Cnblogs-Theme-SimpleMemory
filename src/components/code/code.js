@@ -26,6 +26,9 @@ export default function main(_) {
             pre.wrap('<code-box id="' + boxId + '"></code-box>');
             pre.attr('boxid', boxId);
 
+            // 设置代码字体大小
+            pre.css('font-size', _.__config.code.options.fontSize);
+
             // 增加语言标签
             let preCode = pre.find('code');
             if (preCode.length > 0) {
@@ -63,14 +66,14 @@ export default function main(_) {
             let code  = $(codeBox[i]);
             let boxId = code.attr('id');
 
-            let copyHtml = '<button boxid="' + boxId + '" type="button" class="clipboard code-copay-btn" data-clipboard-action="copy" data-clipboard-target="#' + boxId + ' pre" aria-label="复制代码" ><i class="iconfont icon-fuzhi1"></i></button>';
+            let copyHtml = '<button boxid="' + boxId + '" type="button" class="clipboard code-copay-btn" data-clipboard-action="copy" data-clipboard-target="#' + boxId + ' pre" aria-label="复制代码" ><i class="simple-memory-iconfont simple-memory-icon-fuzhi1"></i></button>';
             code.prepend(copyHtml);
         });
 
         // 点击效果
         $('code-box .code-copay-btn').click(function () {
-            $(this).find('i').removeClass('icon-fuzhi1').addClass('icon-right');
-            setTimeout("$('code-box button[boxid="+$(this).attr('boxid')+"] i').removeClass('icon-right').addClass('icon-fuzhi1')", 1500);
+            $(this).find('i').removeClass('simple-memory-icon-fuzhi1').addClass('simple-memory-icon-right');
+            setTimeout("$('code-box button[boxid="+$(this).attr('boxid')+"] i').removeClass('simple-memory-icon-right').addClass('simple-memory-icon-fuzhi1')", 1500);
         });
 
         // 显示/隐藏

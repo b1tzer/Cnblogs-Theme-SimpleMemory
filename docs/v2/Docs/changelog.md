@@ -1,3 +1,41 @@
+## 2023.08.01 - v2.1.3
+* 合并播放器功能 [(#388)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/388)
+* 侧边栏是否展开配置 [(#387)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/387)
+* 评论优化 [(#384)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/384)
+* 头像旋转 [(#383)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/383)
+* 修复未开启找一找功能显示异常的问题 [(#374)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/374)
+* 文章分类和标签去除中间的逗号 [(#376)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/376)
+* 对titleMsg显示进行优化 [(#378)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/378)
+* 标题前缀图标 [(#379)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/379)
+* markdown extend [(#380)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/380)
+* 代码折叠 [(#381)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/381)
+* 自定义飘落背景特效 [(#382)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/382)
+* 文章评论背景 [(#386)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/386)
+* 适配博客园VIP样式 [(#397)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/397)
+* 统一使用webpack进行管理 [(#398)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/398)
+* 当鼠标移动到右侧滚动条时，滚动条增加宽度 [(#399)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/399)
+* 默认关闭文章页标题动效
+* 增加配置 `animate.homeBannerTitle` 用以配置主页 banner 上 name 的动效
+* 更新文档
+* 更新基础样式
+
+* 修复文章中文标题目录解析报错的问题 [(#377)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/377)
+* 修复解析自动识别代码语言的信息出错
+* 修复移动端出现白边的兼容性问题
+* 修复文章目录锚点监听失败的问题
+
+## 2022.10.08 - v2.1.2
+* 评估集成了一些网友提供的优化解决方案（感谢！）
+* 侧边栏增加网站统计
+* 由于cnzz开启了收费，废弃cnzz配置
+* 增加配置 `code.options.fontSize` 用以配置代码字体大小
+* 根据反馈修改了文章信息发布时间格式为 `YYYY-mm-dd HH:ii`
+* 更新文档
+* 更新基础样式
+* 修复负数开头的文章标题，识别异常的问题
+* 修复了文档字体图标404的问题
+* 修复了自定义侧边栏数据的时候出现了异常嵌套的问题
+
 ## 2021.12.02 - v2.1.0
 * 新的侧边栏样式
 * 增加配置 `sidebar.titleMsg` 用以配置用以配置新版侧边栏title信息

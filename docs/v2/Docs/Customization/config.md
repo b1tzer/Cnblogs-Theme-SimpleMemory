@@ -17,7 +17,7 @@
             avatar: 'http://xxxx.png', // 用户头像
         },
     }
-<script>
+</script>
 ```
 
 我需要新增关于主页图片的配置，新增配置为：
@@ -40,7 +40,7 @@
             },
         }
     }
-<script>
+</script>
 ```
 
 ?> JavaScript 对象是被命名值的容器。值以名称:值对的方式来书写（名称和值由冒号分隔）。
@@ -195,6 +195,48 @@ window.cnblogsConfig = {
   sidebar: {
       titleMsg: '欢迎访问本博客~',
   },
+}
+```
+
+### submenu - 侧边栏是否展开配置
+
+[GitHub Pull requests (#387)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/387)
+
+?> 版本 >= v2.1.3
+
+-   类型：`Object`
+-   默认值：`{}`
+
+> 默认都不展开,设置为 true 则展开
+
+```javascript
+window.cnblogsConfig = {
+    sidebar: {
+        submenu: {
+            // 积分排行
+            pointsRank: false,
+            // 最新随笔
+            latestPosts: false,
+            // 我的标签
+            myTags: false,
+            // 随笔分类
+            postsClassify: false,
+            // 文章分类
+            articleClassify: false,
+            // 阅读排行
+            readRank: false,
+            // 推荐排行
+            recommendRank: false,
+            // 帖子档案
+            postsArchive: false,
+            // 文章档案
+            articleArchive: false,
+            // 自定义列表
+            customList: false,
+            // 最新评论
+            latestComment: false,
+        },
+    },
 }
 ```
 
@@ -545,6 +587,87 @@ window.cnblogsConfig = {
 }
 ```
 
+### aplayer - 音乐播放器
+
+[GitHub Pull requests (#388)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/388)
+
+?> 版本 >= v2.1.3
+
+-   类型：`Object`
+-   相关文档: [音乐播放器](https://bndong.github.io/Cnblogs-Theme-SimpleMemory/v2/#/Docs/Customization/player)
+-   默认值：
+
+```json
+{
+    enable: false,
+    cdn: {
+        aplayer: 'https://cdn.staticfile.net/aplayer/1.10.1/APlayer.min.js',
+        aplayercss: 'https://cdn.staticfile.net/aplayer/1.10.1/APlayer.min.css',
+        meting: 'https://cdn.staticfile.org/meting/2.0.1/Meting.min.js'
+    },
+    options: {
+        id: '3778678',
+        server: 'netease',
+        type: 'playlist',
+        auto: 'netease',
+        fixed: 'true',
+        mini: 'true',
+        autoplay: 'false',
+        theme: '#2980b9',
+        loop: 'all',
+        order: 'random',
+        preload: 'auto',
+        volume: '0.7',
+        mutex: 'true',
+        lrcType: '0',
+        listFolded: 'true',
+        listMaxHeight: '340px',
+        storageName: 'cnblogsTheme',
+    }
+}
+```
+
+音乐播放器
+
+* aplayer.cdn
+
+引入的外部播放器脚本文件地址，可自行修改。
+
+* aplayer.options:
+
+| option        | default                                                                   | description                                                                                                                  |
+| ------------- | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| id            | **require**                                                               | song id / playlist id / album id / search keyword                                                                            |
+| server        | **require**                                                               | music platform: `netease`, `tencent`, `kugou`, `xiami`, `baidu`                                                              |
+| type          | **require**                                                               | `song`, `playlist`, `album`, `search`, `artist`                                                                              |
+| auto          | options                                                                   | music link, support: `netease`, `tencent`, `xiami`                                                                           |
+| fixed         | `true`                                                                    | enable fixed mode                                                                                                            |
+| mini          | `false`                                                                   | enable mini mode                                                                                                             |
+| autoplay      | `false`                                                                   | audio autoplay                                                                                                               |
+| theme         | `#2980b9`                                                                 | main color                                                                                                                   |
+| loop          | `all`                                                                     | player loop play, values: 'all', 'one', 'none'                                                                               |
+| order         | `random`                                                                  | player play order, values: 'list', 'random'                                                                                  |
+| preload       | `auto`                                                                    | values: 'none', 'metadata', 'auto'                                                                                           |
+| volume        | `0.7`                                                                     | default volume, notice that player will remember user setting, default volume will not work after user set volume themselves |
+| mutex         | `true`                                                                    | prevent to play multiple player at the same time, pause other players when this player start play                            |
+| lrcType       | `0`                                                                       | lyric type , Don't display lyrics when the value is 0                                                                        |
+| listFolded    | `true`                                                                    | indicate whether list should folded at first                                                                                 |
+| listMaxHeight | `340px`                                                                   | list max height                                                                                                              |
+| storageName   | `cnblogsTheme`                                                            | localStorage key that store player setting                                                                                   |
+| api           | `https://api.i-meto.com/meting/api?server=:server&type=:type&id=:id&r=:r` | When there is a problem with the API, you can use a different API instead                                                    |
+
+
+```javascript
+window.cnblogsConfig = {
+    footer: {
+        aplayer: {
+            enable: false,
+        },
+    },
+}
+```
+
+
 ## links - 友情链接
 
 ### footer - 页脚友链
@@ -683,7 +806,32 @@ window.cnblogsConfig = {
 
 ?> 版本 v2.0.3 及之后，所有动效默认配置为关闭。
 
-?> 动效会消耗GPU，请大家按需选择开启
+!> 动效会消耗GPU，可能会导致页面卡顿，请大家按需谨慎选择开启！！！
+
+### homeBannerTitle - 主页banner上name的动效
+
+?> 版本 >= v2.1.3
+
+* 类型：```Object```
+* 默认值：
+
+```json5
+{
+    enable: false // 是否开启动效
+}
+```
+
+主页 banner 上 name 的动效（鼠标移入显示）
+
+```javascript
+window.cnblogsConfig = {
+    animate: {
+        homeBannerTitle: {
+            enable: true
+        },
+    },
+}
+```
 
 ### homeBanner - 主页banner动效
 
@@ -887,9 +1035,66 @@ window.cnblogsConfig = {
 }
 ```
 
+### season - 背景动效
+
+[GitHub Pull requests (#382)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/382)
+
+?> 版本 >= v2.1.3
+
+-   类型：`Object`
+-   默认值：
+
+```json
+{
+    "enable": false,
+    "options": {
+      // 默认为一个花瓣图片
+      "img": "data:image/jpg;base64,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",
+      "size": 40
+    }
+}
+```
+
+?> img 建议使用 base64 转码后的图片,素材建议到 [花瓣网](https://huaban.com/follow) 寻找透明背景素材
+
+```javascript
+window.cnblogsConfig = {
+  animate: {
+    season: {
+        enable: false
+    }
+  }
+}
+```
+
+### avatar - 头像旋转特效
+
+[GitHub Pull requests (#383)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/383)
+
+?> 版本 >= v2.1.3
+
+-   类型：`Object`
+-   默认值：
+
+```json5
+{
+  enable: false // 是否开启
+}
+```
+
+```javascript
+window.cnblogsConfig = {
+    animate: {
+        avatar: {
+            enable: false,
+        },
+    },
+}
+```
+
 ## code - 代码
 
-### type - 渲染类型
+### type - 代码渲染类型
 
 * 类型：```String```
 * 默认值：```""```
@@ -909,7 +1114,7 @@ hljs: 使用 Highlighting 插件渲染代码高亮样式。
 */
 ```
 
-### options - 渲染配置
+### options - 代码配置
 
 #### hljs - Highlighting 插件样式配置
 
@@ -1013,6 +1218,25 @@ window.cnblogsConfig = {
 }
 ```
 
+#### fontSize - 代码字体大小
+
+?> 版本 >= v2.1.1
+
+* 类型：```Int```
+* 默认值：```14```
+
+代码字体大小，数值类型，单位px。
+
+```javascript
+window.cnblogsConfig = {
+  code: {
+    options: {
+        fontSize: 20,
+    },
+  },
+}
+```
+
 ## articleDirectory - 文章目录
 
 ### position - 文章目录定位
@@ -1062,6 +1286,92 @@ window.cnblogsConfig = {
 window.cnblogsConfig = {
     articleDirectory: {
         autoWidthScroll: true,
+    },
+}
+```
+
+## articleComment - 文章评论
+
+### background - 文章评论背景
+
+[GitHub Pull requests (#386)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/386)
+
+?> 版本 >= v2.1.3
+
+* 类型：```Object```
+* 默认值：
+
+```json5
+    {
+      enable: false,
+      options: {
+        day: 'rgba(0, 0, 0, 0) url("images/comment_bg_day.png") no-repeat scroll 100% 31% / 35% padding-box border-box',
+        night: 'rgba(0, 0, 0, 0) url("images/comment_bg_dark.png") no-repeat scroll 100% 31% / 35% padding-box border-box',
+      },
+    }
+```
+
+文章评论背景
+
+```javascript
+window.cnblogsConfig = {
+    articleComment: {
+        background: {
+            enable: false,
+        },
+    },
+}
+```
+
+## articleContent - 文章内容
+
+### prefixIcon - 文章标题前图标
+
+[GitHub Pull requests (#379)](https://github.com/BNDong/Cnblogs-Theme-SimpleMemory/pull/379)
+
+?> 版本 >= v2.1.3
+
+* 类型：```Object```
+* 相关文档：[字体图标库](https://bndong.github.io/Cnblogs-Theme-SimpleMemory/v2/#/Docs/Customization/fonticon)
+* 默认值：
+
+```json5
+{
+    enable: false,
+    options: {
+        // iconfont 地址
+        link: "https://at.alicdn.com/t/c/font_3628204_t6n3fw8b1zn.js",
+        // 用于展示的iconfont名称
+        iconfontArr: [
+            'hebaodan','bingtanghulu','kesong','qianceng','fengmi','feiyuguantou','shengjian','youtiao','yuzijiang','zhutongfan','doujiang','sanmingzhi',
+            'paofu','shanbei','dangaojuan','futejia','huangyou','xiangchang','banji','danta','qingning','lajiao','shizi','mojituo','pijiu','putaojiu',
+            'kouxiangtang','xiangcaobingqilin','jiaozi','tilamisu','huoguo','hongshu','bingkuai','mianhuatang','paobing','meishikafei','mantou','qishui',
+            'ganlan','jiroujuan','guodong','baozi','pingguo','chengzi','qingjiao','jidan','xihongshi','mangguo','baocai','niunai','mianbao','huluobu','zhangyu',
+            'pangxie','longxia','yangcong','rou','jitui','huage','xianyu','mogu','qiezi','xilanhua','ningmeng','liulian','banli','sanwenyu','tudou','xigua','nangua',
+            'huolongguo','fantuan','zhusun','shuiluobu','shanzhu','lanmei','shiliu','yezi','tiangua','mihoutao','boluo','kaixinguo','hetao','xiaweiyiguo','huasheng',
+            'bigenguo','kuihuazi','songzi','xiguazi','badanmu','yaoguo','danhuangsu','dangao','binggan','buding','tangguo','qiaokeli','hongzao','candou','putaogan',
+            'manyuemei','taozi','xiangjiao','caomei','niuyouguo','hamigua','chelizi','li','bale','kafei1','shutiao','zhenzhunaicha','xuegao','nailao','kele','tiantong',
+            'hanbao','xiezishousi','baomihua','regou','makalong','tianfuluo','juzi','baixiangguo','putao','shaomai','yumi','pipa','yangtao','youzi','lianwu','wuhuaguo',
+            'paomian','wandou','huanggua','suantou','tiantianquan','shupian','huafubing','bangbangtang','shousi','lizhi','doufu','mocha','boluomi','zhouzi','bingsha',
+            'suannai','pisa','haixing','haizhe','tongluoshao','nuomici','kuangquanshui','roujiamo','cha','zhangyuxiaowanzi','chengzhi','yuancaitou','baicai'
+        ],
+    }
+}
+```
+标题前的图标，便于区分内容和标题
+
+?> 如果使用默认的配置项，只需要将`enable`设置为`true`即可，其他无需配置；
+
+```javascript
+window.cnblogsConfig = {
+    articleContent: {
+        prefixIcon: {
+            enable: false,
+            options: {
+                link: '',
+                iconfontArr: [],
+            }
+        }
     },
 }
 ```
@@ -1144,19 +1454,5 @@ window.cnblogsConfig = {
          ['BNDong GitHub', 'https://github.com/BNDong'],
          ['BNDong Email', 'dbuo@foxmail.com'],
     ],
-}
-```
-
-## cnzz - 网站统计
-
-* 类型：```String```
-* 相关文档：[网站统计](https://bndong.github.io/Cnblogs-Theme-SimpleMemory/v2/#/Docs/Customization/statistical)
-* 默认值：```""```
-
-cnzz网站ID。
-
-```javascript
-window.cnblogsConfig = {
-    cnzz: "123456",
 }
 ```
